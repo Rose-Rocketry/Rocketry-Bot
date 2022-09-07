@@ -19,3 +19,25 @@ When a launch day is coming up or arrived, a generated report for drive time, we
 
 ## USLI Project Alerts
 Reminds us of upcoming due dates for USLI reports.
+
+# Under the Hood
+There are two main programs this bot needs to work correctly.
+1. The database/web host
+2. The bot system itself.
+
+## Database and Webhost
+This is what stores the member database and how we can more granularly manage the bot without having to resort to commands (useful for debugging). The front end does not matter much.
+
+### Technologies expected to use:
+* Django
+* Redis
+* PostgreSQL
+* Docker
+
+## Discord Bot System
+
+### Technologies expected to use:
+* Discord.py
+
+# Repository Management
+I used pipenv to set up the environment.
