@@ -38,6 +38,7 @@ This is what stores the member database and how we can more granularly manage th
 
 ### Technologies expected to use:
 * Discord.py
+* Asnycio
 
 # Repository Management
 I used pipenv to set up the environment.
