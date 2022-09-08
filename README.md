@@ -41,4 +41,18 @@ This is what stores the member database and how we can more granularly manage th
 * Asnycio
 
 # Repository Management
-I used pipenv to set up the environment.
+This repository is built using Docker and Remote-Containers. This way the environment can be shipped to whatever computer we decide to host the project on.
+## What Do I Need?
+First you need to install Docker/Docker Desktop. Visit [Docker](https://www.docker.com/products/docker-desktop/) and follow the links to install.
+Second, I would make sure that you have an up-to-date Visual Studio Code with the following extensions:
+ - Remote Development (Pack)
+ - Docker
+ - Python (Pack)
+Third to make source control easier, I use [GitHub Desktop](https://desktop.github.com/).
+
+# FAQ
+Questions I think I might be asked a lot, for now.
+## How do I switch between working on the web service and the bot?
+In .devcontainer, there is a devcontainer.json. In one of the fields, there is a field called `service`, which you can set to either `bot` and `app`.
+## Why are there so many containers?
+Having the bot separated from the platform that controls it, we can have more reliability. 
