@@ -3,6 +3,8 @@ version: '3.8'
 services:
 
   bot:
+    env_file:
+     - secrets.env
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile.bot
