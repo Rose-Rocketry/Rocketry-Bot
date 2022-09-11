@@ -20,6 +20,10 @@ When a launch day is coming up or arrived, a generated report for drive time, we
 ## USLI Project Alerts
 Reminds us of upcoming due dates for USLI reports.
 
+## Special Rocketry Commands
+ - Motor class conversion. `;rocketry classconvert [newton seconds]`
+ - Fire cabinent explosive power. `;rocketry cabinent`
+ 
 # Under the Hood
 There are two main programs this bot needs to work correctly.
 1. The database/web host
