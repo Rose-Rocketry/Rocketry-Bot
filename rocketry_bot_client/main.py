@@ -1,20 +1,34 @@
-import discord
+"""Main file for runing discord client bot"""
+import asyncio
+import logging
+import logging.handlers
 import os
 
-intents = discord.Intents.default()
-intents.message_content = True
+from rosie_bot import DEFAULT_ROSIE
 
-client = discord.Client(intents=intents)
+async def main():
+    """Bot initialization and startup."""
+    # Setup Logging
+    logger = logging.getLogger('discord')
+    logger.setLevel(logging.INFO)
 
-@client.event
-async def on_ready():
-    print(f'Rosie has logged in as {client.user}')
+    handler = logging.handlers.RotatingFileHandler(
+        filename='discord.log',
+        encoding='utf-8',
+        maxBytes=32*1024*1024,
+        backupCount=5,
+    )
+    dt_fmt = '%Y-%m-%d %H:%M:%S'
+    formatter = logging.Formatter(
+        '[{asctime}] [{levelname:<8}] {name}: {message}',
+        dt_fmt,
+        style="{"
+    )
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if message.content.startswith('$hello') and message.channel.name == 'bot':
-        await message.channel.send('Hello!')
+    # Run the bot
+    bot_key = os.environ["BOTKEY"]
+    await DEFAULT_ROSIE.start(bot_key)
 
-client.run(os.environ['BOTKEY'])
+asyncio.run(main())
