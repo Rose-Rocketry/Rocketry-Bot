@@ -4,7 +4,7 @@
 {
 	"name": "Python 3 & PostgreSQL",
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "bot",
+	"service": "app",
 	"workspaceFolder": "/workspace",
 
 	// Configure tool-specific properties.

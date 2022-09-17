@@ -6,8 +6,7 @@ Features can be disabled individually
 ## Member Database
 Creates and manages names and automatically assigns the aspiring member role once they have submitted their name and rose-hulman email address.
 
-## Attendance Taking
-*Requires Member Database*
+### Attendance Taking
 
 Based on the Google Calendar (updated hourly) provided, it will create a message in channel to react to.
 This will automatically mark down the hours worked log for an hour (default) or special by an admin.

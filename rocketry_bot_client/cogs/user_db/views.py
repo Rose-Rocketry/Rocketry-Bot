@@ -31,15 +31,16 @@ class MemberNameEmailModal(discord.ui.Modal, title="Membership Data"):
 
 class RoleSelectionView(discord.ui.View):
     """A view designed for role selection"""
+    # TODO Make options as part of the constructor.
     def __init__(self):
         super().__init__()
         selection_box = discord.ui.Select()
-        selection_box.add_option(label="Prole")
         selection_box.add_option(label="USLI")
-        selection_box.add_option(label="Love")
-        selection_box.add_option(label="Big Blue")
-        selection_box.add_option(label="Orang")
-        selection_box.max_values = 5
+        selection_box.add_option(label="Aspiring L1",)
+        selection_box.add_option(label="Aspiring L2")
+        selection_box.add_option(label="RPL")
+        selection_box.add_option(label="CubeSAT")
+        selection_box.max_values = len(selection_box.options)
         selection_box.callback = self.role_selected
         self.selection_box = selection_box
         self.add_item(selection_box)
