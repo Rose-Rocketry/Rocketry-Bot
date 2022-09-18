@@ -29,23 +29,26 @@ class MemberNameEmailModal(discord.ui.Modal, title="Membership Data"):
         else:
             await interaction.response.send_message("Updated your information!", ephemeral=True)
 
+
 class RoleSelectionView(discord.ui.View):
-    """A view designed for role selection"""
+    """A view designed for role selection. This may overwrite the value of the option."""
     # TODO Make options as part of the constructor.
-    def __init__(self):
+    def __init__(self, roles: List[discord.SelectOption]):
         super().__init__()
         selection_box = discord.ui.Select()
-        selection_box.add_option(label="USLI")
-        selection_box.add_option(label="Aspiring L1",)
-        selection_box.add_option(label="Aspiring L2")
-        selection_box.add_option(label="RPL")
-        selection_box.add_option(label="CubeSAT")
-        selection_box.max_values = len(selection_box.options)
-        selection_box.callback = self.role_selected
+        self.role_options = []
+
+        for i in range(0, min(len(roles), 25)):
+            selection_box.append_option(roles[i])
+            self.role_options.append(discord.Object(roles[i].value))
+
+        selection_box.max_values = len(roles)
+        selection_box.callback = self.handle_update
         self.selection_box = selection_box
         self.add_item(selection_box)
     
-    async def role_selected(self, interaction: discord.Interaction):
-        """Handles when a role is selected"""
-        await interaction.response.send_message("Shoot")
-        self.selection_box.add_option("biscuit")
+    async def handle_update(self, interaction: discord.Interaction):
+        #List of roles that the user has
+        await interaction.user.remove_roles(self.role_options)
+
+        await interaction.response.send_message()

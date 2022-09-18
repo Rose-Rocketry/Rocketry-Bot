@@ -1,6 +1,6 @@
 """Models for tracking attendance"""
-from datetime import date, datetime
 from django.db import models
+import django
 
 # Create your models here.
 class Person(models.Model):
@@ -30,4 +30,8 @@ class AttendanceRecord(models.Model):
     """A model for an attendance record."""
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
-    last_updated = models.DateTimeField(default=datetime.now())
+    last_updated = models.DateTimeField(default=django.utils.timezone.now)
+
+class Guild(models.Model):
+    """A model for storing Guild settings"""
+    

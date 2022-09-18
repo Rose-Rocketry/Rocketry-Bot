@@ -11,6 +11,9 @@ Creates and manages names and automatically assigns the aspiring member role onc
 Based on the Google Calendar (updated hourly) provided, it will create a message in channel to react to.
 This will automatically mark down the hours worked log for an hour (default) or special by an admin.
 
+### Search names for mentions
+In the event someone hasn't updated their profile to have their name, you can get a list of users with that name (will not ping).
+
 This also manages the `Active` or `Aspiring` member status. If the member has not submitted attendance for a quarter they will be demoted to `Aspiring` member. This rule does not apply to admin.
 
 ## Launch Day Alerts

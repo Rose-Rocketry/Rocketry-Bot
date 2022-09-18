@@ -2,6 +2,7 @@
 import logging
 import discord
 from discord.ext import commands
+from discord import app_commands
 
 ROCKETRY_GUILD = discord.Object(id=728794908852224093)
 
@@ -36,12 +37,13 @@ async def reload_cogs(interaction: discord.Interaction):
     """Reloads the user_db cog"""
     testers = [352258945995243525]
     if interaction.user.id not in testers:
-        return await interaction.response.send_message("You can't do that :V", ephemeral=True)
-    logger.info("User passed test.")
+        logger.info("User %s failed test.", interaction.user)
+        return await interaction.respond.send_message("You can't do that :7")
 
     try:
         await DEFAULT_ROSIE.reload_extension('cogs.user_db.cog')
         await interaction.response.send_message("Successfully reloaded", ephemeral=True)
+        await DEFAULT_ROSIE.tree.sync()
     except discord.ext.commands.ExtensionFailed as error:
         print("Failed to reload extension")
         logging.error(error)
