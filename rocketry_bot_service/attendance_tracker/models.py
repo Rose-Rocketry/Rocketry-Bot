@@ -34,4 +34,12 @@ class AttendanceRecord(models.Model):
 
 class Guild(models.Model):
     """A model for storing Guild settings"""
+    name = models.CharField(max_length=64)
+    snowflake = models.CharField(max_length=32)
+    active_member_snowflake = models.CharField(max_length=32)
+    aspiring_member_snowflake = models.CharField(max_length=32)
+    announcements_channel_snowflake = models.CharField(max_length=32)
+    attendance_channel_snowflake = models.CharField(max_length=32)
     
+    def __str__(self):
+        return self.name

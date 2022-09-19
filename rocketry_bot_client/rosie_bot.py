@@ -25,9 +25,7 @@ class RosieClient(commands.Bot):
         await self.tree.sync(guild=ROCKETRY_GUILD)
 
     async def host_background_task(self):
-        """Updates bot with tasks that need to be assigned
-        TODO: Setup event loop on web-base
-        """
+        """Updates bot with tasks that need to be assigned"""
         await self.wait_until_ready()
 
 DEFAULT_ROSIE = RosieClient()

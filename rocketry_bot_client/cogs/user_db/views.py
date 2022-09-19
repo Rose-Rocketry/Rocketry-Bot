@@ -7,24 +7,28 @@ from discord import ui
 class MemberNameEmailModal(discord.ui.Modal, title="Membership Data"):
     """Where our members can put their information securely and easily"""
     name = ui.TextInput(label='First and Last name')
-
     email = ui.TextInput(label='Rose Email', placeholder="xyler123@rose-hulman.edu")
+    
+    def __init__(self, active_role: int, aspiring_role: int):
+        super().__init__()
+        self.active_role = active_role
+        self.aspiring_role = aspiring_role
 
     # pylint: disable=arguments-differ
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         """Interaction on error"""
         await interaction.response.send_message('Oops! Something went wrong.', ephemeral=True)
-
-        # Make sure we know what the error actually is
-        print(error.__traceback__)
+        print(error)
 
     # pylint: disable=arguments-differ
     async def on_submit(self, interaction: discord.Interaction):
         """ On Submit if not already an active member, add them to the DB """
         user = interaction.user
         #If not an active member
-        if user.get_role(772985856461504514) is None:
-            user.add_roles(748717724863299596)
+        print(self.active_role)
+        if user.get_role(int(self.active_role)) is None:
+            # Give aspiring member role.
+            user.add_roles(int(self.aspiring_role))
             await interaction.response.send_message("Welcome to Rose-Rocketry!", ephemeral=True)
         else:
             await interaction.response.send_message("Updated your information!", ephemeral=True)

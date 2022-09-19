@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import render
 
 from django.views import View
-from .models import Person, Meeting, AttendanceRecord
+from .models import Person, Meeting, AttendanceRecord, Guild
 
 # Create your views here.
 class RegisterMemberView(View):
@@ -45,6 +45,18 @@ class TakeAttendanceView(View):
 
 
         return JsonResponse(records.first())
+
+class GuildSettingsView(View):
+    """Handles Guild Settings set"""
+    def get(self, request, guild_snowflake):
+        """Returns data"""
+        guild = Guild.objects.get(snowflake=guild_snowflake)
+        settings = {
+            'name':guild.name,
+            'active_member_snowflake':guild.active_member_snowflake,
+            'aspiring_member_snowflake':guild.aspiring_member_snowflake,
+        }
+        return JsonResponse(settings)
 
 class SearchForMemberView(View,):
     """Search for a member based on the first name given"""
