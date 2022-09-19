@@ -40,6 +40,10 @@ class Guild(models.Model):
     aspiring_member_snowflake = models.CharField(max_length=32)
     announcements_channel_snowflake = models.CharField(max_length=32)
     attendance_channel_snowflake = models.CharField(max_length=32)
+
+    # attendance_sheet_id = models.CharField(max_length=32)
     
     def __str__(self):
+        if self.name == "":
+            return self.snowflake
         return self.name

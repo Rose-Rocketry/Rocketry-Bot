@@ -37,16 +37,17 @@ class MemberManagement(commands.Cog):
     """A cog for handling the membership DB"""
     def __init__(self, bot):
         self.bot = bot
-        self.background_task = bot.loop.create_task()
+        #self.background_task = bot.loop.create_task(self.task_check())
 
     async def task_check(self):
         """Periodically checks for tasks in the database."""
         await self.bot.wait_until_ready()
-        while not self.bot.is_closed():
-            pass
+        # while not self.bot.is_closed():
+            # pass
 
     async def cog_unload(self):
-        self.background_task.cancel()
+        """Cancels the background task (if we have one)"""
+        # self.background_task.cancel()
 
     @app_commands.command(name="update-profile", description="Update your profile")
     async def update_profile(self, interaction: discord.Interaction):
@@ -64,7 +65,7 @@ class MemberManagement(commands.Cog):
     async def setup_role_markers(self, interaction: discord.Interaction):
         """Create a role selector for a group of related roles."""
         view = RoleSelectionView(project_options)
-        await interaction.channel.send("__TEST__: What Projects Interest You?:",view=view)
+        await interaction.channel.send("__TEST__: What projects interest you?:",view=view)
         print("Sent views")
         await interaction.response.send_message("Warning this command is a WIP", ephemeral=True)
 

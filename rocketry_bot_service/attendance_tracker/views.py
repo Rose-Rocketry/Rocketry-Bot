@@ -1,9 +1,10 @@
 """Views for attendance tracker"""
-from django.http import HttpResponse, Http404, JsonResponse
+from django.http import HttpResponse, Http404, JsonResponse, HttpResponseForbidden, HttpResponseBadRequest
 from django.shortcuts import render
-
+from django.contrib.auth import authenticate
 from django.views import View
 from .models import Person, Meeting, AttendanceRecord, Guild
+from .forms import MemberRegistryForm
 
 # Create your views here.
 class RegisterMemberView(View):
@@ -11,19 +12,35 @@ class RegisterMemberView(View):
 
     def get(self, request):
         """Simple http response"""
-        return HttpResponse("Hello, you shouldn't be seeing this right now :)")
+        form = MemberRegistryForm()
+        return render(request, 'attendance_tracker/register_member.html', {'form':form})
 
     def post(self, request, *args, **kwargs):
         """Handles a post request to the member view"""
-        snowflake = request.POST['snowflake']
-        full_name = request.POST['full_name']
-        email = request.POST['email']
-        user = Person.objects.get_or_create(snowflake=snowflake)
+        form = MemberRegistryForm(request.POST)
+
+        if not form.is_valid():
+            print("Invalid form passed")
+            return HttpResponseBadRequest()
+
+        print(form.cleaned_data['user'])
+        print(form.cleaned_data['password'])
+        auth = authenticate(username=form.cleaned_data['user'], password=form.cleaned_data['password'])
+
+        if auth is None:
+            print("No such user")
+            return render(request,'attendance_tracker/register_member.html', {'form':form})
+
+        snowflake = form.cleaned_data['snowflake']
+        full_name = form.cleaned_data['full_name']
+        email = form.cleaned_data['email']
+        user, _created = Person.objects.get_or_create(snowflake=snowflake)
         user.full_name = full_name
         user.email = email
+        user.snowflake = snowflake
         user.save()
-        return HttpResponse(status = 200)
-        
+        return render(request, 'attendance_tracker/register_member.html', {'form':form})
+               
 class TakeAttendanceView(View):
     """A view for a member's  attendance"""
     def post(self, request, announcement_snowflake, user_snowflake):
